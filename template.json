@@ -251,9 +251,7 @@
             "consumable",
             "treasure",
             "spell",
-            "spellcastingEntry",
             "ancestry",
-            "background",
             "feat",
             "activity",
             "backpack",
@@ -261,7 +259,7 @@
             "effect",
             "talent",
             "soulment",
-            "sphere",
+            "package",
             "tradition"
         ],
         "templates": {
@@ -651,20 +649,6 @@
             "items": {},
             "vision": "normal"
         },
-        "background": {
-            "templates": [
-                "itemDescription"
-            ],
-            "boosts": {
-                "0": { "value": [] },
-                "1": { "value": [] }
-            },
-            "items": {},
-            "trainedLore": "",
-            "trainedSkills": {
-                "value": []
-            }
-        },
         "feat": {
             "templates": [
                 "itemDescription",
@@ -868,7 +852,7 @@
                 "value": 0
             }
         },
-        "sphere": {
+        "package": {
             "templates": [
                 "itemDescription"
             ],
