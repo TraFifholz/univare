@@ -3,8 +3,8 @@ import { UnivareActor } from "./actor/actor.js";
 import { UnivareActorSheet } from "./actor/actor-sheet.js";
 import { UnivareItem } from "./item/item.js";
 import { UnivareItemSheet } from "./item/item-sheet.js";
-import { preloadTemplates } from "./module/preloadTemplates.js";
-import { Univare } from "./module/config.js";
+import { preloadTemplates } from "./preloadTemplates.js";
+import { Univare } from "./config.js";
 
 Hooks.once('init', async function() {
 
