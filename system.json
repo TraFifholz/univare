@@ -1,0 +1,29 @@
+{
+  "name": "univare",
+  "title": "乌尼瓦冒险",
+  "description": "自设游戏系统",
+  "version": "1.1.0",
+  "minimumCoreVersion": "0.8.3",
+  "compatibleCoreVersion": "0.8.6",
+  "templateVersion": 2,
+  "author": "Asacolips",
+  "esmodules": ["module/univare.js"],
+  "styles": ["dnd5e.css"],
+  "scripts": [],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "gridDistance": 5,
+  "gridUnits": "ft",
+  "primaryTokenAttribute": "attributes.hp",
+  "secondaryTokenAttribute": "attributes.balance",
+  "url": "",
+  "manifest": "",
+  "download": "",
+  "license": "LICENSE.txt"
+}
