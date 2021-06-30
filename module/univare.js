@@ -3,6 +3,8 @@ import { UnivareActor } from "./actor/actor.js";
 import { UnivareActorSheet } from "./actor/actor-sheet.js";
 import { UnivareItem } from "./item/item.js";
 import { UnivareItemSheet } from "./item/item-sheet.js";
+import { preloadTemplates } from "./module/preloadTemplates.js";
+import { Univare } from "./module/config.js";
 
 Hooks.once('init', async function() {
 
@@ -20,6 +22,13 @@ Hooks.once('init', async function() {
     formula: "1d20 + @init",
     decimals: 2
   };
+
+  CONFIG.Univare = Univare;
+
+  CONFIG.Univare.templates.preloadPromise = preloadTemplates();
+  CONFIG.Univare.templates.preloadPromise.then(() => {
+      CONFIG.Univare.templates.templatesPreloaded = true;
+  });
 
   // Define custom Entity classes
   CONFIG.Actor.entityClass = UnivareActor;
