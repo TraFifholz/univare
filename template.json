@@ -244,20 +244,19 @@
     },
     "Item": {
         "types": [
-            "skill",
+            "saving",
             "weapon",
             "armor",
             "equipment",
             "consumable",
             "treasure",
             "spell",
-            "ancestry",
-            "feat",
-            "activity",
             "backpack",
             "condition",
             "effect",
-            "talent",
+            "feat",
+            "skill",
+            "maneuver",
             "soulment",
             "package",
             "tradition"
@@ -347,6 +346,9 @@
                     "value": 0
                 }
             },
+            "package": {
+                "proficiency": 0
+            },
             "activatedEffect": {
                 "activation": {
                     "type": "",
@@ -405,6 +407,11 @@
                 },
                 "modifiers": []
             }
+        },
+        "saving": {
+            "templates": [
+                "package"
+            ]
         },
         "backpack": {
             "templates": [
@@ -621,44 +628,15 @@
                 "value": ""
             }
         },
-        "ancestry": {
-            "templates": [
-                "itemDescription"
-            ],
-            "hp": 6,
-            "size": "med",
-            "reach": 5,
-            "speed": 25,
-            "boosts": {
-                "0": { "value": [] },
-                "1": { "value": [] },
-                "2": { "value": ["str", "dex", "con", "int", "wis", "cha"] }
-            },
-            "flaws": {
-                "0": { "value": [] }
-            },
-            "languages": {
-                "value": ["common"],
-                "custom": ""
-            },
-            "additionalLanguages": {
-                "count": 0,
-                "value": [],
-                "custom": ""
-            },
-            "items": {},
-            "vision": "normal"
-        },
         "feat": {
             "templates": [
-                "itemDescription",
-                "itemLevel"
+                "itemDescription"
             ],
             "class": {
                 "value": ""
             },
             "featType": {
-                "value": "bonus"
+                "value": "天赋"
             },
             "actionType": {
                 "value": ""
@@ -673,22 +651,6 @@
                 "value": []
             },
             "location": ""
-        },
-        "talent": {
-            "templates": [
-                "itemDescription"
-            ],
-            "skill": {
-                "value": ""
-            }
-        },
-        "activity": {
-            "templates": [
-                "itemDescription"
-            ],
-            "actions": {
-                "value": ""
-            }
         },
         "spell": {
             "templates": [
@@ -868,9 +830,8 @@
             "skill": {
                 "value": ""
             }
-        }, 
-        "trait": {
-            "name": ""
+        },
+        "maneuver": {
         }
     }
 }
