@@ -22,6 +22,14 @@ Actor下面有三个类型：
 + Companion：友伴；
 + NPC：非玩家角色；
 
+### 角色卡
+
+角色卡有4个子页：
++ Biography：背景、记录；
++ Description：数据，包括有的HP、耐性、豁免和技能的等级、攻击和AC；
++ Features：职业专长、天赋；能力组熟练度；
++ Abilities：法术、魂能、武技。
+
 ## Item
 
 Item就是抽象意义上的物件。
