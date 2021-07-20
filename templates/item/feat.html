@@ -1,0 +1,57 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+        <ul>
+            <li><div class="header-fields"></div>
+                <input name="name" type="text" value="{{item.name}}" placeholder="名称"/>
+            </div></li>
+            <li><div class="tags">
+                {{#each data.tag.additional as |tag id|}}
+                    <input
+                        type="text"
+                        name="data.tag.additional.{{id}}.name"
+                        value="{{tag.name}}"
+                        style="width:50px;"
+                    />
+                    <a
+                        class="tag-delete"
+                        data-action-key="{{id}}"
+                    >
+                        <i class="fas fa-trash"></i>
+                    </a>
+                {{/each}}
+                <a class="tag-create"><i class="fa fa-plus"></i></a>
+            </div></li>
+        </ul>
+    </header>
+    <div class="type form-group">
+        <label>类型</label>
+        <span class="form-fields">
+          <select name="data.featType">
+            {{#select attr.type}}
+            <option value="talent">天赋</option>
+            <option value="rPower">族裔力量</option>
+            <option value="feat">职业专长</option>
+            {{/select}}
+          </select>
+        </span>
+    </div>
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">详述</a>
+        <a class="item" data-tab="attributes">行动</a>
+    </nav>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Description Tab --}}
+        <div class="tab" data-group="primary" data-tab="description">
+            {{editor content=data.description target="data.description" rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+
+        {{!-- Attributes Tab --}}
+        <div class="tab attributes" data-group="primary" data-tab="attributes">
+        </div>
+    </section>
+</form>

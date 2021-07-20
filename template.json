@@ -262,16 +262,9 @@
             "tradition"
         ],
         "templates": {
-            "itemDescription": {
-                "description": {
-                    "value": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits" : [],
-                "rules": [],
-                "slug": null
+            "common": {
+                "description": "",
+                "tags": []
             },
             "physicalItem": {
                 "quantity": {
@@ -415,7 +408,7 @@
         },
         "backpack": {
             "templates": [
-                "itemDescription",
+                "common",
                 "physicalItem",
                 "itemLevel"
             ],
@@ -436,7 +429,7 @@
         },
         "treasure": {
             "templates": [
-                "itemDescription",
+                "common",
                 "physicalItem",
                 "itemLevel"
             ],
@@ -449,7 +442,7 @@
         },
         "weapon": {
             "templates": [
-                "itemDescription",
+                "common",
                 "physicalItem",
                 "itemLevel",
                 "magicItem"
@@ -524,7 +517,7 @@
         },
         "armor": {
             "templates": [
-                "itemDescription",
+                "common",
                 "physicalItem",
                 "itemLevel",
                 "magicItem"
@@ -574,7 +567,7 @@
         },
         "consumable": {
             "templates": [
-                "itemDescription",
+                "common",
                 "physicalItem",
                 "activatedEffect",
                 "itemLevel"
@@ -616,7 +609,7 @@
         },
         "equipment": {
             "templates": [
-                "itemDescription",
+                "common",
                 "physicalItem",
                 "magicItem",
                 "itemLevel"
@@ -630,31 +623,18 @@
         },
         "feat": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "class": {
                 "value": ""
             },
             "featType": {
                 "value": "天赋"
-            },
-            "actionType": {
-                "value": ""
-            },
-            "actionCategory": {
-                "value": ""
-            },
-            "actions": {
-                "value": ""
-            },
-            "prerequisites": {
-                "value": []
-            },
-            "location": ""
+            }
         },
         "spell": {
             "templates": [
-                "itemDescription",
+                "common",
                 "itemLevel"
             ],
             "spellType": {
@@ -726,7 +706,7 @@
         },
         "condition": {
             "templates": [
-                "itemDescription",
+                "common",
                 "status"
             ],
             "base": "",
@@ -749,7 +729,7 @@
         },
         "effect": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "level": {
                 "value": 1
@@ -771,7 +751,7 @@
         },
         "skill": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "name": "",
             "root": "null",
@@ -797,7 +777,7 @@
         },
         "soulment": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "usage": {
                 "value": ""
@@ -816,13 +796,13 @@
         },
         "package": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "proficiency": 0
         },
         "tradition": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "source":{
                 "value": []

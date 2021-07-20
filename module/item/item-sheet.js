@@ -7,7 +7,12 @@ export class UnivareItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      classes: ["univare", "sheet", "item"],
+      width: 520,
+      height: 480,
+      tabs: [{ navSelector: ".sheet-tabs", 
+      contentSelector: ".sheet-body", 
+      initial: "description" }]
     });
   }
 
