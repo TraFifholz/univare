@@ -32,27 +32,23 @@ export class UnivareItemSheet extends ItemSheet {
   /** @override */
   getData() {
     // Retrieve base data structure.
-    const data = super.getData();
+    const context = super.getData();
 
-    // Grab the item's data.
-    const itemData = data.data;
+    // Use a safe clone of the item data for further operations.
+    const itemData = context.item.data;
 
-    // Re-define the template data references.
-    data.item = itemData;
-    data.data = itemData.data;
+    // Retrieve the roll data for TinyMCE editors.
+    context.rollData = {};
+    let actor = this.object?.parent ?? null;
+    if (actor) {
+      context.rollData = actor.getRollData();
+    }
 
-    return data;
-  }
+    // Add the actor's data to context.data for easier access, as well as flags.
+    context.data = itemData.data;
+    context.flags = itemData.flags;
 
-  /* -------------------------------------------- */
-
-  /** @override */
-  setPosition(options = {}) {
-    const position = super.setPosition(options);
-    const sheetBody = this.element.find(".sheet-body");
-    const bodyHeight = position.height - 192;
-    sheetBody.css("height", bodyHeight);
-    return position;
+    return context;
   }
 
   /* -------------------------------------------- */
@@ -63,7 +59,25 @@ export class UnivareItemSheet extends ItemSheet {
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
-
+    
     // Roll handlers, click handlers, etc. would go here.
+    html.find('.tag-create').on('click', () => {
+      this.item.update({
+          _id: this.item.id,
+          ['data.tag.additional.' + randomID()]: {
+              name: '标签',
+          },
+      }, {});
+    });
+    html.find('.tag-delete').on('click', (ev) => {
+      const key = ev.currentTarget.dataset.actionKey;
+      this.item.update({
+          _id: this.item.id,
+          'data.tag.additional': {
+              [`-=${key}`]: null,
+          },
+      }, {});
+    });
   }
+  
 }
