@@ -212,11 +212,6 @@
                 "nationality": {
                     "value": ""
                 }
-            }, 
-            "skill_points": {
-                "common": 15,
-                "background": 3,
-                "race": 5
             }
         },
         "compaion": {
