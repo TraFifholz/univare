@@ -1,0 +1,57 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+        <section>
+            <h2>
+                <div class="header-fields"></div>
+                    <input name="name" type="text" value="{{item.name}}" placeholder="名称"/>
+                </div>
+            </h2>
+            <div class="细节">
+                <label>熟练度</label>
+                <span class="form-fields">
+                  <select name="data.proficiency">
+                    {{#select data.proficiency}}
+                    <option value="ut">未受训</option>
+                    <option value="t">受训</option>
+                    <option value="e">专家</option>
+                    <option value="m">大师</option>
+                    <option value="l">传奇</option>            
+                    {{/select}}
+                  </select>
+                </span>
+                <label>相关属性</label>
+                <span class="form-fields">
+                    <select name="data.attribute">
+                      {{#select data.attribute}}
+                      <option value="str">力量</option>
+                      <option value="dex">敏捷</option>
+                      <option value="con">体质</option>
+                      <option value="int">智力</option>
+                      <option value="wis">感知</option>
+                      <option value="cha">魅力</option>            
+                      {{/select}}
+                    </select>
+                </span>
+            </div>
+        </section>
+    </header>
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">详述</a>
+        <a class="item" data-tab="attributes">行动</a>
+    </nav>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Description Tab --}}
+        <div class="tab" data-group="primary" data-tab="description">
+            {{editor content=data.description target="data.description" rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+
+        {{!-- Attributes Tab --}}
+        <div class="tab attributes" data-group="primary" data-tab="attributes">
+        </div>
+    </section>
+</form>

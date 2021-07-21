@@ -25,14 +25,9 @@ Hooks.once('init', async function() {
 
   CONFIG.Univare = Univare;
 
-  CONFIG.Univare.templates.preloadPromise = preloadTemplates();
-  CONFIG.Univare.templates.preloadPromise.then(() => {
-      CONFIG.Univare.templates.templatesPreloaded = true;
-  });
-
   // Define custom Entity classes
-  CONFIG.Actor.entityClass = UnivareActor;
-  CONFIG.Item.entityClass = UnivareItem;
+  CONFIG.Actor.documentClass = UnivareActor;
+  CONFIG.Item.documentClass = UnivareItem;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
@@ -40,21 +35,22 @@ Hooks.once('init', async function() {
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("univare", UnivareItemSheet, { makeDefault: true });
 
-  // If you need to add Handlebars helpers, here are a few useful examples:
-  Handlebars.registerHelper('concat', function() {
-    var outStr = '';
-    for (var arg in arguments) {
-      if (typeof arguments[arg] != 'object') {
-        outStr += arguments[arg];
-      }
+  return preloadTemplates();
+});
+
+// If you need to add Handlebars helpers, here are a few useful examples:
+Handlebars.registerHelper('concat', function() {
+  var outStr = '';
+  for (var arg in arguments) {
+    if (typeof arguments[arg] != 'object') {
+      outStr += arguments[arg];
     }
-    return outStr;
-  });
+  }
+  return outStr;
+});
 
-  Handlebars.registerHelper('toLowerCase', function(str) {
-    return str.toLowerCase();
-  });
-
+Handlebars.registerHelper('toLowerCase', function(str) {
+  return str.toLowerCase();
 });
 
 Hooks.once("ready", async function() {

@@ -244,9 +244,11 @@
     },
     "Item": {
         "types": [
-            "saving",
             "weapon",
             "armor",
+            "package",
+            "skill",
+            "feat",
             "equipment",
             "consumable",
             "treasure",
@@ -254,11 +256,8 @@
             "backpack",
             "condition",
             "effect",
-            "feat",
-            "skill",
             "maneuver",
             "soulment",
-            "package",
             "tradition"
         ],
         "templates": {
@@ -334,6 +333,24 @@
                     "misidentified": {}
                 }
             },
+            "bonus": {
+                "mod": 0,
+                "DC": {
+                    "total": 10,
+                    "morale": 0,
+                    "circ": 0,
+                    "insight": 0,
+                    "divine": 0,
+                    "competence": 0,
+                    "other_mod": 0
+                },
+                "morale": 0,
+                "circ": 0,
+                "insight": 0,
+                "divine": 0,
+                "competence": 0,
+                "other_mod": 0
+            },
             "itemLevel": {
                 "level": {
                     "value": 0
@@ -400,11 +417,6 @@
                 },
                 "modifiers": []
             }
-        },
-        "saving": {
-            "templates": [
-                "package"
-            ]
         },
         "backpack": {
             "templates": [
@@ -625,12 +637,7 @@
             "templates": [
                 "common"
             ],
-            "class": {
-                "value": ""
-            },
-            "featType": {
-                "value": "天赋"
-            }
+            "featType": "天赋"
         },
         "spell": {
             "templates": [
@@ -751,29 +758,14 @@
         },
         "skill": {
             "templates": [
-                "common"
+                "common",
+                "package",
+                "bonus"
             ],
             "name": "",
-            "root": "null",
-            "proficiency": 1,
-            "rank": 0,
-            "ability": "wis",
-            "mod": 0,
-            "DC": {
-                "total": 10,
-                "morale": 0,
-                "circ": 0,
-                "insight": 0,
-                "divine": 0,
-                "competence": 0,
-                "other_mod": 0
-            },
-            "morale": 0,
-            "circ": 0,
-            "insight": 0,
-            "divine": 0,
-            "competence": 0,
-            "other_mod": 0
+            "proficiency": "ut",
+            "level": 0,
+            "attribute": "wis"
         },
         "soulment": {
             "templates": [
@@ -796,22 +788,21 @@
         },
         "package": {
             "templates": [
-                "common"
-            ],
-            "proficiency": 0
+                "common",
+                "package"
+            ]
         },
         "tradition": {
             "templates": [
                 "common"
             ],
-            "source":{
-                "value": []
-            },
-            "skill": {
-                "value": ""
-            }
+            "source": null,
+            "skill": null
         },
         "maneuver": {
+            "templates": [
+                "common"
+            ]
         }
     }
 }

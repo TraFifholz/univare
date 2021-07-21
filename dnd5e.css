@@ -276,6 +276,15 @@
   color: #7a7971;
   font-weight: normal;
 }
+.univare .sheet-body,
+.univare .sheet-body .tab,
+.univare .sheet-body .tab .editor {
+  height: 100%;
+}
+
+.univare .tox .tox-editor-container {
+  background: none;
+}
 .univare.sheet .editor {
   height: 100%;
 }
