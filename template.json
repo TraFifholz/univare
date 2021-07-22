@@ -163,7 +163,12 @@
                     "opp_react": 0
                 },
                 "others": {
-                    "bonus_hp": 0
+                    "bonus_hp": 0,
+                    "init": {
+                        "value": 0,
+                        "id": "",
+                        "bonus": 0
+                    }
                 }
             }
         },

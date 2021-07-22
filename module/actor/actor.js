@@ -66,7 +66,7 @@ export class UnivareActor extends Actor {
       // Calculate the modifier using d20 rules.
       ability.mod = Math.floor((ability.value - 10) / 2);
     }
-
+    
     for (let i of actorData.items) {
       if (i.type === 'skill') {
         if (i.data.data.isSaving){
@@ -78,6 +78,8 @@ export class UnivareActor extends Actor {
         i.data.data.basicBonus = actorData.data.abilities[i.data.data.attribute].mod + i.data.data.level;
       }
     }
+    if (data.others.init.id != "")
+      data.others.init.value = actorData.items.get(data.others.init.id).data.data.basicBonus + data.others.init.bonus;
   }
 
   /**

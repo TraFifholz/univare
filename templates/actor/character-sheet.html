@@ -7,13 +7,30 @@
   </header>
   <div>
     <section>
-      <div class="resource flexrow flex-group-center">
-        <label for="data.attributes.hp.value" class="resource-label">生命值</label>
-        <input type="text" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
-        <span> / {{data.attributes.hp.max}}</span>
-        <label for="data.attributes.balance.value" class="resource-label">耐性</label>
-        <input type="text" name="data.attributes.balance.value" value="{{data.attributes.balance.value}}" data-dtype="Number"/>
-        <span> / {{data.attributes.balance.max}}</span>
+      <div class="resource flexrow">
+        <div class="resource flexrow">
+          <label for="data.attributes.hp.value" class="resource-label">生命值</label>
+          <input type="text" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
+          <span> / {{data.attributes.hp.max}}</span>
+        </div>
+        <div class="resource flexrow">
+          <label for="data.attributes.balance.value" class="resource-label">耐性</label>
+          <input type="text" name="data.attributes.balance.value" value="{{data.attributes.balance.value}}" data-dtype="Number"/>
+          <span> / {{data.attributes.balance.max}}</span>
+        </div>
+        <div class="initiative form-group">
+          <label>先攻</label>
+          <span class="form-fields">
+            <select name="data.others.init.id">
+              {{#select data.others.init.id}}
+              {{#each skills as |item key|}}
+                <option value="{{item._id}}">{{item.name}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </span>
+          <input type="text" name="data.others.init.bonus" value="{{data.others.init.bonus}}" data-dtype="Number"/>
+      </div>
       </div>
     </section>
     <section>
