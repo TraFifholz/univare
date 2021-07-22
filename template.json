@@ -353,7 +353,7 @@
                 }
             },
             "package": {
-                "proficiency": 0
+                "proficiency": "ut"
             },
             "activatedEffect": {
                 "activation": {
@@ -759,6 +759,7 @@
                 "bonus"
             ],
             "name": "",
+            "isSaving": false,
             "proficiency": "ut",
             "level": 0,
             "attribute": "wis"
@@ -786,7 +787,8 @@
             "templates": [
                 "common",
                 "package"
-            ]
+            ],
+            "type": "sphere"
         },
         "tradition": {
             "templates": [

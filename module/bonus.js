@@ -30,10 +30,12 @@ const latbonus_clalevel = {
     "l" :[0,1,1,2,3,3,4,5,5,6,6]
 }
 
-export const calculateBonus = async function (precious, latter, chalevel, clalevel) {
+export const calculateBonus = function (precious, latter, chalevel, clalevel) {
     if (latter == "") {
         latter = precious;
     }
+    chalevel = Number(chalevel);
+    clalevel = Number(clalevel);
     return prebonus_chalevel[precious][chalevel] + prebonus_clalevel[precious][clalevel] + 
         latbonus_chalevel[latter][chalevel] + latbonus_clalevel[latter][clalevel];
 };

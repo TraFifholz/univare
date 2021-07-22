@@ -1,3 +1,4 @@
+import { calculateBonus } from "../bonus.js";
 /**
  * Extend the base Actor entity by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
@@ -65,6 +66,18 @@ export class UnivareActor extends Actor {
       // Calculate the modifier using d20 rules.
       ability.mod = Math.floor((ability.value - 10) / 2);
     }
+
+    for (let i of actorData.items) {
+      if (i.type === 'skill') {
+        if (i.data.data.isSaving){
+          i.data.data.level = calculateBonus('l', i.data.data.proficiency, actorData.data.level.chara, actorData.data.level.train);
+        }
+        else {
+          i.data.data.level = calculateBonus(i.data.data.proficiency, i.data.data.proficiency, actorData.data.level.chara, actorData.data.level.train);
+        }
+        i.data.data.basicBonus = actorData.data.abilities[i.data.data.attribute].mod + i.data.data.level;
+      }
+    }
   }
 
   /**
@@ -82,11 +95,16 @@ export class UnivareActor extends Actor {
    * Override getRollData() that's supplied to rolls.
    */
   getRollData() {
+    this.prepareDerivedData()
     const data = super.getRollData();
 
     // Prepare character roll data.
     this._getCharacterRollData(data);
     this._getNpcRollData(data);
+
+    this.items.forEach((k,v) => {
+      data[k._id] = foundry.utils.deepClone(k.data.data);
+    });
 
     return data;
   }
@@ -118,5 +136,15 @@ export class UnivareActor extends Actor {
     if (this.data.type !== 'npc') return;
 
     // Process additional NPC data here.
+  }
+  async _onCreate(data, options, user) {
+    for (let sdata of CONFIG.Univare.savings){
+      const savingData = {
+        name: sdata.name,
+        type: "skill",
+        data: sdata
+      };
+      Item.create(savingData, {parent: this});
+    }
   }
 }

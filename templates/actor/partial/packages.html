@@ -1,0 +1,61 @@
+<li class="item flexrow" style="background-color: lightgoldenrodyellow;">
+    <div>
+        <label><b>豁免</b></label>
+    </div>
+    <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="skill" data-item-id="saving"><i class="fas fa-plus"></i>新增</a>
+</li>
+{{#each savings as |item key|}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+        <a class="item-name rollable" data-roll="d20+@{{item._id}}.basicBonus" data-label="{{item.name}}">{{item.name}}</a>
+        <div>等级：{{item.data.level}}</div>
+        <div>基础加值：{{numberFormat item.data.basicBonus decimals=0 sign=true}}</div>
+        <div class="item-controls">
+            <a class="item-control item-edit" title="编辑"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="删除"><i class="fas fa-trash"></i></a>
+        </div>
+    </li>
+{{/each}}
+
+<li class="item flexrow" style="background-color: lightgoldenrodyellow;">
+    <div>
+        <label><b>技能</b></label>
+    </div>
+    <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="skill"><i class="fas fa-plus"></i>新增</a>
+</li>
+{{#each skills as |item key|}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+        <a class="item-name rollable" data-roll="d20+@{{item._id}}.basicBonus" data-label="{{item.name}}">{{item.name}}</a>
+        <div>等级：{{item.data.level}}</div>
+        <div>基础加值：{{numberFormat item.data.basicBonus decimals=0 sign=true}}</div>
+        <div class="item-controls">
+            <a class="item-control item-edit" title="编辑"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="删除"><i class="fas fa-trash"></i></a>
+        </div>
+    </li>
+{{/each}}
+
+<li class="item flexrow" style="background-color: lightgoldenrodyellow;">
+    <div>
+        <label><b>其他</b></label>
+    </div>
+    <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="package"><i class="fas fa-plus"></i>新增</a>
+</li>
+{{#each packages as |item key|}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+        <h4 class="item-name">{{item.name}}</h4>
+        <div><label><b>类型：</b></label><span>
+            {{#if (eq item.data.type "class")}}范型{{/if}}
+            {{#if (eq item.data.type "sphere")}}领域{{/if}}
+            {{#if (eq item.data.type "source")}}根源{{/if}}
+            {{#if (eq item.data.type "style")}}流派{{/if}}
+            {{#if (eq item.data.type "discipline")}}宗派{{/if}}
+        </span></div>
+        <div class="item-controls">
+            <a class="item-control item-edit" title="编辑"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="删除"><i class="fas fa-trash"></i></a>
+        </div>
+    </li>
+{{/each}}

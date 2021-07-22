@@ -1,3 +1,4 @@
+import { calculateBonus } from "../bonus.js";
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -55,7 +56,9 @@ export class UnivareActorSheet extends ActorSheet {
     // Initialize containers.
     const gear = [];
     const feats = [];
-    console.log(sheetData.actor);
+    const saving = [];
+    const skill = [];
+    const packages = [];
 
     // Iterate through items, allocating to containers
     // let totalWeight = 0;
@@ -69,7 +72,22 @@ export class UnivareActorSheet extends ActorSheet {
       else if (i.type === 'feat') {
         feats.push(i);
       }
+      else if (i.type === 'skill') {
+        if (i.data.isSaving){
+          i.data.level = calculateBonus('l', i.data.proficiency, actorData.data.level.chara, actorData.data.level.train);
+          saving.push(i);
+        }
+        else {
+          i.data.level = calculateBonus(i.data.proficiency, i.data.proficiency, actorData.data.level.chara, actorData.data.level.train);
+          skill.push(i);
+        }
+        i.data.basicBonus = actorData.data.abilities[i.data.attribute].mod + i.data.level;
+      }
+      else if (i.type === 'package') {
+        packages.push(i);
+      }
     }
+    packages.sort((a, b) => (a.data.type.localeCompare(b.data.type,'zh-CN')))
     for (let s in actorData.data.stages) {
       actorData.data.stages[s].feats = [];
       actorData.data.stages[s].numtalent = 0;
@@ -87,9 +105,13 @@ export class UnivareActorSheet extends ActorSheet {
       }
       actorData.data.stages[s].featlist = new_featlist;
     }
+
     // Assign and return
     sheetData.gear = gear;
-    sheetData.feats = feats;
+    sheetData.skills = skill;
+    sheetData.savings = saving;
+    sheetData.packages = packages;
+    console.log(sheetData);
   }
 
   /* -------------------------------------------- */
@@ -121,7 +143,10 @@ export class UnivareActorSheet extends ActorSheet {
 
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
-
+    html.find('.rollSkill').click(ev => {
+      const element = ev.currentTarget;
+      const skill = element.parentElement.dataset.itemId;
+    });
     // Drag events for macros.
     if (this.actor.isowner) {
       let handler = ev => this._onDragStart(ev);
@@ -158,9 +183,6 @@ export class UnivareActorSheet extends ActorSheet {
               numrpower: 0
           },
       }, {});
-    });
-    html.find('.add-feat').on('click', (ev) => {
-      const key = ev.currentTarget.dataset.actionKey;
     });
     html.find('.stage-delete').on('click', (ev) => {
       const key = ev.currentTarget.dataset.actionKey;
@@ -210,6 +232,12 @@ export class UnivareActorSheet extends ActorSheet {
         [`data.stages.${event.currentTarget.dataset.actionKey}.featlist`]: featlist.concat(item._id)
       }, {});
     }
+    if (header.dataset.itemId === "saving"){
+      item.update({
+        _id: item.id,
+        [`data.isSaving`]: true
+      }, {});
+    }
     return item;
   }
 
@@ -225,12 +253,11 @@ export class UnivareActorSheet extends ActorSheet {
 
     if (dataset.roll) {
       let roll = new Roll(dataset.roll, this.actor.getRollData());
-      let label = dataset.label ? `Rolling ${dataset.label}` : '';
+      let label = dataset.label ? `${dataset.label}检定` : '';
       roll.roll().toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label
       });
     }
   }
-
 }
