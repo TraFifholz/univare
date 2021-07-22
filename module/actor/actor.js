@@ -4,7 +4,7 @@
  */
 export class UnivareActor extends Actor {
 
-
+  
   /** @override */
   prepareData() {
     // Prepare data for the actor. Calling the super version of this executes
@@ -55,8 +55,8 @@ export class UnivareActor extends Actor {
     data.level.train = 0;
     for (let i in data.stages) {
       max_hp += Number(data.stages[i].hit_dice);
-      if (data.stages[i].is_chara) data.level.chara += 1;
-      else if (data.stages[i].is_train) data.level.train += 1;
+      if (data.stages[i].type == "chara") data.level.chara += 1;
+      else if (data.stages[i].type == "train") data.level.train += 1;
     }
     data.level.total = data.level.chara + data.level.train;
     data.attributes.hp.max = max_hp + data.others.bonus_hp + data.abilities.con.mod * data.level.total;

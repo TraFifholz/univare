@@ -115,7 +115,26 @@
                         "public": ""
                     }
                 },
-                "stages": [],
+                "stages": {
+                    "heritage": {
+                        "name": "族裔",
+                        "type": "heritage",
+                        "hit_dice": 0,
+                        "featlist": [],
+                        "numfeat": 0,
+                        "numtalent": 0,
+                        "numrpower": 0
+                    },
+                    "origin": {
+                        "name": "起源",
+                        "type": "origin",
+                        "hit_dice": 0,
+                        "featlist": [],
+                        "numfeat": 0,
+                        "numtalent": 0,
+                        "numrpower": 0
+                    }
+                },
                 "statusEffects": [],
                 "traits": {
                     "size": {

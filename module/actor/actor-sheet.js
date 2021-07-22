@@ -136,8 +136,7 @@ export class UnivareActorSheet extends ActorSheet {
           _id: this.actor.id,
           ['data.stages.' + randomID()]: {
               name: `人物阶级${this.actor.data.data.level.chara + 1}`,
-              is_chara: true,
-              is_train: false,
+              type: "chara",
               hit_dice: 8,
               featlist: [],
               numfeat: 0,
@@ -151,8 +150,7 @@ export class UnivareActorSheet extends ActorSheet {
           _id: this.actor.id,
           ['data.stages.' + randomID()]: {
               name: `职业阶级${this.actor.data.data.level.train + 1}`,
-              is_chara: false,
-              is_train: true,
+              type: "train",
               hit_dice: 8,
               featlist: [],
               numfeat: 0,
@@ -166,6 +164,10 @@ export class UnivareActorSheet extends ActorSheet {
     });
     html.find('.stage-delete').on('click', (ev) => {
       const key = ev.currentTarget.dataset.actionKey;
+      for (let featid of this.actor.data.data.stages[key].featlist){
+        const item = this.actor.items.get(featid);
+        item.delete();
+      }
       this.actor.update({
           _id: this.actor.id,
           'data.stages': {
