@@ -1,48 +1,70 @@
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-    <div class="header-fields">
-        <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
-    </div>
+    <section>
+      <div class="header-fields">
+        <h2 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h2>
+      </div>
+      <div>
+        <label for="data.attributes.hp.value" class="resource-label"><b>生命值</b></label>
+      <input type="text" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number" style="width: 75px;"/>
+      <span> / {{data.attributes.hp.max}}</span>
+      &emsp;
+      <label for="data.attributes.hp.value" class="resource-label">额外：</label>
+      <input type="text" name="data.others.bonus_hp" value="{{data.others.bonus_hp}}" data-dtype="Number" style="width: 50px;"/>
+      &emsp;&emsp;
+      <label for="data.attributes.balance.value" class="resource-label"><b>耐性</b></label>
+      <input type="text" name="data.attributes.balance.value" value="{{data.attributes.balance.value}}" data-dtype="Number" style="width: 50px;"/>
+      <span> / </span>
+      <input type="text" name="data.attributes.balance.max" value="{{data.attributes.balance.max}}" data-dtype="Number" style="width: 50px;"/>
+      &emsp;&emsp;
+      <label>先攻</label>
+      <span class="form-fields">
+        <select name="data.others.init.id">
+          {{#select data.others.init.id}}
+          {{#each skills as |item key|}}
+            <option value="{{item._id}}">{{item.name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </span>
+      <input type="text" name="data.others.init.bonus" value="{{data.others.init.bonus}}" data-dtype="Number" style="width: 75px;"/>
+      </div>
+    </section>
   </header>
   <div>
     <section>
-      <div class="resource flexrow">
-        <div class="resource flexrow">
-          <label for="data.attributes.hp.value" class="resource-label">生命值</label>
-          <input type="text" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
-          <span> / {{data.attributes.hp.max}}</span>
-        </div>
-        <div class="resource flexrow">
-          <label for="data.attributes.balance.value" class="resource-label">耐性</label>
-          <input type="text" name="data.attributes.balance.value" value="{{data.attributes.balance.value}}" data-dtype="Number"/>
-          <span> / {{data.attributes.balance.max}}</span>
-        </div>
-        <div class="initiative form-group">
-          <label>先攻</label>
-          <span class="form-fields">
-            <select name="data.others.init.id">
-              {{#select data.others.init.id}}
-              {{#each skills as |item key|}}
-                <option value="{{item._id}}">{{item.name}}</option>
-              {{/each}}
-              {{/select}}
-            </select>
-          </span>
-          <input type="text" name="data.others.init.bonus" value="{{data.others.init.bonus}}" data-dtype="Number"/>
-      </div>
-      </div>
-    </section>
-    <section>
-      <div class="ability flexrow flex-group-center">
         {{#each data.abilities as |ability key|}}
         
-          <label for="data.abilities.{{key}}.value" class="resource-label">{{key}}</label>
+          <label for="data.abilities.{{key}}.value" class="resource-label">
+            {{#if (eq key "str")}}力量{{/if}}
+            {{#if (eq key "dex")}}敏捷{{/if}}
+            {{#if (eq key "con")}}体质{{/if}}
+            {{#if (eq key "int")}}智力{{/if}}
+            {{#if (eq key "wis")}}感知{{/if}}
+            {{#if (eq key "cha")}}魅力{{/if}}
+          </label>
           <input type="text" name="data.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" style="width:50px;"/>
           <span class="ability-mod rollable" data-roll="d20+@{{key}}.mod" data-label="{{key}}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
-      
+          &emsp;
         {{/each}}
-      </div>
+    </section>
+    <section>
+
+      <label for="data.attributes.hp.value" class="resource-label">基础AC</label>
+      <input type="text" name="data.attributes.ac.base" value="{{data.attributes.ac.base}}" data-dtype="Number" style="width: 50px;"/>
+      &emsp;
+      <label for="data.attributes.balance.value" class="resource-label">敏捷AC</label>
+      <input type="text" name="data.attributes.ac.refAC.total" value="{{data.attributes.ac.refAC.total}}" data-dtype="Number" style="width: 50px;"/>
+      &emsp;
+      <label for="data.attributes.balance.value" class="resource-label">护甲AC</label>
+      <input type="text" name="data.attributes.ac.armorAC.total" value="{{data.attributes.ac.armorAC.total}}" data-dtype="Number" style="width: 50px;"/>
+      &emsp;&emsp;
+      <label>
+        <b>AC/接触/搓手不及：</b>
+      </label>
+      <span>{{data.attributes.ac.total}}/{{data.attributes.ac.touch}}/{{data.attributes.ac.ff}}</span>
+
     </section>
   </div>
   
@@ -58,23 +80,25 @@
     {{!-- Sheet Body --}}
     <section class="sheet-body">
 
-        <div class="tab biography" data-group="primary" data-tab="description">
-          {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+        <div class="tab description flexcol" data-group="primary" data-tab="description">
+          <div style="height: 500px;">
+            {{> "systems/univare/templates/actor/partial/description.html"}}
+          </div>
         </div>
 
-        <div class="tab features" data-group="primary" data-tab="features">
+        <div class="tab features flexcol" data-group="primary" data-tab="features">
           {{> "systems/univare/templates/actor/partial/features.html"}}
         </div>
 
-        <div class="tab packages" data-group="primary" data-tab="packages">
+        <div class="tab packages flexcol" data-group="primary" data-tab="packages">
           {{> "systems/univare/templates/actor/partial/packages.html"}}
         </div>
 
-        <div class="tab items" data-group="primary" data-tab="items">
+        <div class="tab items flexcol" data-group="primary" data-tab="items">
           {{> "systems/univare/templates/actor/partial/items.html"}}
         </div>
 
-        <div class="tab abilities" data-group="primary" data-tab="abilities">
+        <div class="tab abilities flexcol" data-group="primary" data-tab="abilities">
           {{> "systems/univare/templates/actor/partial/abilities.html"}}
         </div>
     </section>

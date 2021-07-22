@@ -8,6 +8,10 @@ export class UnivareActorSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
+      classes: ["univare", "sheet", "actor"],
+      width: 690,
+      height: 800,
+      scrollY: [".items-list"],
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
   }
@@ -54,22 +58,21 @@ export class UnivareActorSheet extends ActorSheet {
     const actorData = sheetData.actor;
 
     // Initialize containers.
-    const gear = [];
     const feats = [];
     const saving = [];
     const skill = [];
     const packages = [];
+    const weapons = [];
+    const armors = [];
+    const equipments = [];
+    const gears = [];
 
     // Iterate through items, allocating to containers
     // let totalWeight = 0;
     for (let i of sheetData.items) {
       i.img = i.img || DEFAULT_TOKEN;
-      // Append to gear.
-      if (i.type === 'item') {
-        gear.push(i);
-      }
       // Append to features.
-      else if (i.type === 'feat') {
+      if (i.type === 'feat') {
         feats.push(i);
       }
       else if (i.type === 'skill') {
@@ -85,6 +88,18 @@ export class UnivareActorSheet extends ActorSheet {
       }
       else if (i.type === 'package') {
         packages.push(i);
+      }
+      else if (i.type === "weapon") {
+        weapons.push(i);
+      }
+      else if (i.type === "armor") {
+        armors.push(i);
+      }
+      else if (i.type === "equipment"){
+        equipments.push(i);
+      }
+      else if (i.type === "gear"){
+        gears.push(i);
       }
     }
     packages.sort((a, b) => (a.data.type.localeCompare(b.data.type,'zh-CN')))
@@ -107,10 +122,16 @@ export class UnivareActorSheet extends ActorSheet {
     }
 
     // Assign and return
-    sheetData.gear = gear;
+    sheetData.gears = gears;
+    sheetData.weapons = weapons;
+    sheetData.armors = armors;
+    sheetData.equipments = equipments;
     sheetData.skills = skill;
     sheetData.savings = saving;
     sheetData.packages = packages;
+    actorData.data.attributes.ac.total = actorData.data.attributes.ac.refAC.total + actorData.data.attributes.ac.armorAC.total + actorData.data.attributes.ac.base;
+    actorData.data.attributes.ac.touch = actorData.data.attributes.ac.refAC.total + actorData.data.attributes.ac.base;
+    actorData.data.attributes.ac.ff = actorData.data.attributes.ac.armorAC.total + actorData.data.attributes.ac.base;
     console.log(sheetData);
   }
 
@@ -188,7 +209,7 @@ export class UnivareActorSheet extends ActorSheet {
       const key = ev.currentTarget.dataset.actionKey;
       for (let featid of this.actor.data.data.stages[key].featlist){
         const item = this.actor.items.get(featid);
-        item.delete();
+        if (item) item.delete();
       }
       this.actor.update({
           _id: this.actor.id,

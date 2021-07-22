@@ -1,8 +1,11 @@
+<ol class="items-list">
 <li class="item flexrow" style="background-color: lightgoldenrodyellow;">
     <div>
         <label><b>豁免</b></label>
     </div>
-    <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="skill" data-item-id="saving"><i class="fas fa-plus"></i>新增</a>
+    <div class="item-controls">
+        <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="skill" data-item-id="saving"><i class="fas fa-plus"></i>新增</a>
+    </div>
 </li>
 {{#each savings as |item key|}}
     <li class="item flexrow" data-item-id="{{item._id}}">
@@ -21,7 +24,9 @@
     <div>
         <label><b>技能</b></label>
     </div>
-    <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="skill"><i class="fas fa-plus"></i>新增</a>
+    <div class="item-controls">
+        <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="skill"><i class="fas fa-plus"></i>新增</a>
+    </div>
 </li>
 {{#each skills as |item key|}}
     <li class="item flexrow" data-item-id="{{item._id}}">
@@ -40,7 +45,9 @@
     <div>
         <label><b>其他</b></label>
     </div>
-    <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="package"><i class="fas fa-plus"></i>新增</a>
+    <div class="item-controls">
+        <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="package"><i class="fas fa-plus"></i>新增</a>
+    </div>
 </li>
 {{#each packages as |item key|}}
     <li class="item flexrow" data-item-id="{{item._id}}">
@@ -59,3 +66,4 @@
         </div>
     </li>
 {{/each}}
+</ol>

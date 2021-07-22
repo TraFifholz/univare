@@ -1,12 +1,111 @@
 <ol class="items-list">
-    <li class="item flexrow item-header">
+    <li class="item flexrow item-header" style="background-color: lightblue;">
       <div class="item-image"></div>
-      <div class="item-name">Name</div>
+      <div class="item-name">武器</div>
       <div class="item-controls">
-        <a class="item-control item-create" title="Create item" data-type="feat"><i class="fas fa-plus"></i> Add item</a>
+        <a class="item-control item-create" title="Create item" data-type="weapon"><i class="fas fa-plus"></i>武器</a>
       </div>
     </li>
-{{#each gear as |item id|}}
+{{#each weapons as |item id|}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+        <h4 class="item-name">{{item.name}}</h4>
+        <div class="type form-group">
+          <label>先决</label>
+          <span class="form-fields">
+            <select name="data.hit.pre" style="width: 30px;">
+              {{#select data.featType}}
+                  {{#each skills as |item key|}}
+                      <option value="{{item._id}}">{{item.name}}</option>
+                  {{/each}}
+              {{/select}}
+            </select>
+          </span>
+        </div>
+        <div class="type form-group">
+          <label>后验</label>
+          <span class="form-fields">
+            <select name="data.hit.lat" style="width: 30px;">
+              {{#select data.featType}}
+                  {{#each skills as |item key|}}
+                      <option value="{{item._id}}">{{item.name}}</option>
+                  {{/each}}
+              {{/select}}
+            </select>
+          </span>
+        </div>
+        <div class="type form-group">
+          <label>熟练度</label>
+          <span class="form-fields">
+            <select name="data.proficiency" style="width: 30px;">
+              {{#select data.featType}}
+                  {{#each skills as |item key|}}
+                      <option value="{{item._id}}">{{item.name}}</option>
+                  {{/each}}
+              {{/select}}
+            </select>
+          </span>
+        </div>
+        <div class="type form-group">
+          <label>属性</label>
+          <span class="form-fields">
+            <select name="data.proficiency" style="width: 30px;">
+              {{#select data.featType}}
+                  {{#each skills as |item key|}}
+                      <option value="{{item._id}}">{{item.name}}</option>
+                  {{/each}}
+              {{/select}}
+            </select>
+          </span>
+        </div>
+        <div class="item-controls">
+            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        </div>
+    </li>
+{{/each}}
+<li class="item flexrow item-header" style="background-color: lightblue;">
+  <div class="item-image"></div>
+  <div class="item-name">防具</div>
+  <div class="item-controls">
+    <a class="item-control item-create" title="Create item" data-type="armor"><i class="fas fa-plus"></i>防具</a>
+  </div>
+</li>
+{{#each armors as |item id|}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+        <h4 class="item-name">{{item.name}}</h4>
+        <div class="item-controls">
+            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        </div>
+    </li>
+{{/each}}
+<li class="item flexrow item-header" style="background-color: lightblue;">
+  <div class="item-image"></div>
+  <div class="item-name">穿戴物</div>
+  <div class="item-controls">
+    <a class="item-control item-create" title="Create item" data-type="equipment"><i class="fas fa-plus"></i>穿戴品</a>
+  </div>
+</li>
+{{#each equipments as |item id|}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
+        <h4 class="item-name">{{item.name}}</h4>
+        <div class="item-controls">
+            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        </div>
+    </li>
+{{/each}}
+<li class="item flexrow item-header" style="background-color: lightblue;">
+  <div class="item-image"></div>
+  <div class="item-name">其他</div>
+  <div class="item-controls">
+    <a class="item-control item-create" title="Create item" data-type="gear"><i class="fas fa-plus"></i>物品</a>
+  </div>
+</li>
+{{#each gears as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}">
         <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
         <h4 class="item-name">{{item.name}}</h4>
