@@ -5,27 +5,30 @@
         <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
     </div>
   </header>
-  <div class="resource flex-group-center">
-    <label for="data.attributes.hp.value" class="resource-label">生命值</label>
-    <input type="text" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number" style="width:50px;"/>
-    <span> / </span>
-    <input type="text" name="data.attributes.hp.max" value="{{data.attributes.hp.max}}" data-dtype="Number" style="width:50px;"/>
-    <label for="data.attributes.balance.value" class="resource-label">耐性</label>
-    <input type="text" name="data.attributes.balance.value" value="{{data.attributes.balance.value}}" data-dtype="Number" style="width:50px;"/>
-    <span> / </span>
-    <input type="text" name="data.attributes.balance.max" value="{{data.attributes.balance.max}}" data-dtype="Number" style="width:50px;"/>
+  <div>
+    <section>
+      <div class="resource flexrow flex-group-center">
+        <label for="data.attributes.hp.value" class="resource-label">生命值</label>
+        <input type="text" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
+        <span> / {{data.attributes.hp.max}}</span>
+        <label for="data.attributes.balance.value" class="resource-label">耐性</label>
+        <input type="text" name="data.attributes.balance.value" value="{{data.attributes.balance.value}}" data-dtype="Number"/>
+        <span> / {{data.attributes.balance.max}}</span>
+      </div>
+    </section>
+    <section>
+      <div class="ability flexrow flex-group-center">
+        {{#each data.abilities as |ability key|}}
+        
+          <label for="data.abilities.{{key}}.value" class="resource-label">{{key}}</label>
+          <input type="text" name="data.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" style="width:50px;"/>
+          <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod" data-label="{{key}}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+      
+        {{/each}}
+      </div>
+    </section>
   </div>
-  {{#each data.abilities as |ability key|}}
-    <div class="ability flexrow flex-group-center">
-      <label for="data.abilities.{{key}}.value" class="resource-label">{{key}}</label>
-      <input type="text" name="data.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
-      <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod" data-label="{{key}}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
-    </div>
-  {{/each}}
-  <div class="ability flexrow flex-group-center">
-    <label for="data.init" class="resource-label">先攻</label>
-    <input type="text" name="data.init" value="{{data.init}}" data-dtype="Number"/>
-  </div>
+  
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="description">描述</a>

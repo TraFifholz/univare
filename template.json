@@ -113,30 +113,10 @@
                     "biography": {
                         "value": "",
                         "public": ""
-                    },
-                    "class": {
-                        "value": ""
-                    },
-                    "ancestry": {
-                        "value": ""
-                    },
-                    "heritage": {
-                        "value": ""
-                    },
-                    "deity": {
-                        "value": ""
-                    },
-                    "level": {
-                        "value": 1,
-                        "min": 1
                     }
                 },
+                "stages": [],
                 "statusEffects": [],
-                "schema": {
-                    "version": {
-                        "value": ""
-                    }
-                },
                 "traits": {
                     "size": {
                         "value": "med"
@@ -163,7 +143,9 @@
                     "react": 1,
                     "opp_react": 0
                 },
-                "init": 0
+                "others": {
+                    "bonus_hp": 0
+                }
             }
         },
         "character": {

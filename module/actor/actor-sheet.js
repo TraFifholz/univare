@@ -21,6 +21,7 @@ export class UnivareActorSheet extends ActorSheet {
   /** @override */
   getData() {
     let isOwner = this.actor.isOwner;
+    console.log(this.actor);
     const data = super.getData();
 
     // Redefine the template data references to the actor.
@@ -53,45 +54,42 @@ export class UnivareActorSheet extends ActorSheet {
 
     // Initialize containers.
     const gear = [];
-    const features = [];
-    const spells = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: []
-    };
+    const feats = [];
+    console.log(sheetData.actor);
 
     // Iterate through items, allocating to containers
     // let totalWeight = 0;
     for (let i of sheetData.items) {
-      let item = i.data;
       i.img = i.img || DEFAULT_TOKEN;
       // Append to gear.
       if (i.type === 'item') {
         gear.push(i);
       }
       // Append to features.
-      else if (i.type === 'feature') {
-        features.push(i);
-      }
-      // Append to spells.
-      else if (i.type === 'spell') {
-        if (i.data.spellLevel != undefined) {
-          spells[i.data.spellLevel].push(i);
-        }
+      else if (i.type === 'feat') {
+        feats.push(i);
       }
     }
-
+    for (let s in actorData.data.stages) {
+      actorData.data.stages[s].feats = [];
+      actorData.data.stages[s].numtalent = 0;
+      actorData.data.stages[s].numfeat = 0;
+      actorData.data.stages[s].numrpower = 0;
+      let new_featlist = [];
+      for (let i of feats){
+        if (actorData.data.stages[s].featlist.indexOf(i._id) > -1){
+          actorData.data.stages[s].feats.push(i);
+          if (i.data.featType === "feat") actorData.data.stages[s].numfeat += 1;
+          else if (i.data.featType === "talent") actorData.data.stages[s].numtalent += 1;
+          else if (i.data.featType === "rPower") actorData.data.stages[s].numrpower += 1;
+          new_featlist.push(i._id);
+        }
+      }
+      actorData.data.stages[s].featlist = new_featlist;
+    }
     // Assign and return
     sheetData.gear = gear;
-    sheetData.features = features;
-    sheetData.spells = spells;
+    sheetData.feats = feats;
   }
 
   /* -------------------------------------------- */
@@ -125,7 +123,7 @@ export class UnivareActorSheet extends ActorSheet {
     html.find('.rollable').click(this._onRoll.bind(this));
 
     // Drag events for macros.
-    if (this.actor.owner) {
+    if (this.actor.isowner) {
       let handler = ev => this._onDragStart(ev);
       html.find('li.item').each((i, li) => {
         if (li.classList.contains("inventory-header")) return;
@@ -133,6 +131,48 @@ export class UnivareActorSheet extends ActorSheet {
         li.addEventListener("dragstart", handler, false);
       });
     }
+    html.find('.stage-create-cha').on('click', () => {
+      this.actor.update({
+          _id: this.actor.id,
+          ['data.stages.' + randomID()]: {
+              name: `人物阶级${this.actor.data.data.level.chara + 1}`,
+              is_chara: true,
+              is_train: false,
+              hit_dice: 8,
+              featlist: [],
+              numfeat: 0,
+              numtalent: 0,
+              numrpower: 0
+          },
+      }, {});
+    });
+    html.find('.stage-create-cla').on('click', () => {
+      this.actor.update({
+          _id: this.actor.id,
+          ['data.stages.' + randomID()]: {
+              name: `职业阶级${this.actor.data.data.level.train + 1}`,
+              is_chara: false,
+              is_train: true,
+              hit_dice: 8,
+              featlist: [],
+              numfeat: 0,
+              numtalent: 0,
+              numrpower: 0
+          },
+      }, {});
+    });
+    html.find('.add-feat').on('click', (ev) => {
+      const key = ev.currentTarget.dataset.actionKey;
+    });
+    html.find('.stage-delete').on('click', (ev) => {
+      const key = ev.currentTarget.dataset.actionKey;
+      this.actor.update({
+          _id: this.actor.id,
+          'data.stages': {
+              [`-=${key}`]: null,
+          },
+      }, {});
+    });
   }
 
   /**
@@ -159,7 +199,16 @@ export class UnivareActorSheet extends ActorSheet {
     delete itemData.data["type"];
 
     // Finally, create the item!
-    return await Item.create(itemData, {parent: this.actor});
+    let item = await Item.create(itemData, {parent: this.actor});
+    
+    if (typeof(event.currentTarget.dataset.actionKey)!="undefined" && event.currentTarget.dataset.type === "feat"){
+      const featlist = this.actor.data.data.stages[event.currentTarget.dataset.actionKey].featlist;
+      this.actor.update({
+        _id: this.actor.id,
+        [`data.stages.${event.currentTarget.dataset.actionKey}.featlist`]: featlist.concat(item._id)
+      }, {});
+    }
+    return item;
   }
 
   /**

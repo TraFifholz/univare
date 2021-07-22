@@ -50,6 +50,16 @@ export class UnivareActor extends Actor {
     // Make modifications to data here. For example:
     const data = actorData.data;
 
+    let max_hp = 0;
+    data.level.chara = 0;
+    data.level.train = 0;
+    for (let i in data.stages) {
+      max_hp += Number(data.stages[i].hit_dice);
+      if (data.stages[i].is_chara) data.level.chara += 1;
+      else if (data.stages[i].is_train) data.level.train += 1;
+    }
+    data.level.total = data.level.chara + data.level.train;
+    data.attributes.hp.max = max_hp + data.others.bonus_hp + data.abilities.con.mod * data.level.total;
     // Loop through ability scores, and add their modifiers to our sheet output.
     for (let [key, ability] of Object.entries(data.abilities)) {
       // Calculate the modifier using d20 rules.
