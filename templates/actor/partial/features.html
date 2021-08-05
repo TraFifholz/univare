@@ -2,11 +2,8 @@
   {{#each data.stages as |stage id|}}
   {{#if (eq stage.type "heritage")}}
     <li class="item flexrow" data-item-id="{{stage.id}}", style="background-color: lightgoldenrodyellow;">
-      <div>
+      <div class="item-name">
         <label><b>{{stage.name}}</b></label>
-      </div>
-      <div>
-        <span>天赋：{{stage.numtalent}}；</span>
       </div>
       <div class="item-controls">
         <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="feat"><i class="fas fa-plus"></i>新增</a>
@@ -14,8 +11,11 @@
     </li>
     {{#each stage.feats as |feat key|}}
       <li class="item flexrow" data-item-id="{{feat._id}}">
-        <div class="item-image"><img src="{{feat.img}}" title="{{feat.name}}" width="24" height="24"/></div>
-        <h4 class="item-name">{{feat.name}}</h4>
+        <div class="item-name flexrow">
+          <div class="item-image" style="background-image: url('{{feat.img}}')"></div>
+          <h4>{{feat.name}}</h4>
+        </div>
+        
         <div><label><b>类型：</b></label><span>
           {{#if (eq feat.data.featType "feat")}}职业专长{{/if}}
           {{#if (eq feat.data.featType "talent")}}天赋{{/if}}
@@ -36,11 +36,8 @@
   {{#each data.stages as |stage id|}}
   {{#if (eq stage.type "origin")}}
     <li class="item flexrow" data-item-id="{{stage.id}}", style="background-color: lightgoldenrodyellow;">
-      <div>
+      <div class="item-name">
         <label><b>{{stage.name}}</b></label>
-      </div>
-      <div>
-        <span>天赋：{{stage.numtalent}}；</span>
       </div>
       <div class="item-controls">
         <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="feat"><i class="fas fa-plus"></i>新增</a>
@@ -48,8 +45,10 @@
     </li>
     {{#each stage.feats as |feat key|}}
       <li class="item flexrow" data-item-id="{{feat._id}}">
-        <div class="item-image"><img src="{{feat.img}}" title="{{feat.name}}" width="24" height="24"/></div>
-        <h4 class="item-name">{{feat.name}}</h4>
+        <div class="item-name flexrow">
+          <div class="item-image" style="background-image: url('{{feat.img}}')"></div>
+          <h4>{{feat.name}}</h4>
+        </div>
         <div><label><b>类型：</b></label><span>
           {{#if (eq feat.data.featType "feat")}}职业专长{{/if}}
           {{#if (eq feat.data.featType "talent")}}天赋{{/if}}
@@ -69,8 +68,10 @@
 
   {{#each stage.feats as |feat key|}}
     <li class="item flexrow" data-item-id="{{feat._id}}">
-      <div class="item-image"><img src="{{feat.img}}" title="{{feat.name}}" width="24" height="24"/></div>
-      <h4 class="item-name">{{feat.name}}</h4>
+      <div class="item-name flexrow">
+        <div class="item-image" style="background-image: url('{{feat.img}}')"></div>
+        <h4>{{feat.name}}</h4>
+      </div>
       <div><label><b>类型：</b></label><span>
         {{#if (eq feat.data.featType "feat")}}职业专长{{/if}}
         {{#if (eq feat.data.featType "talent")}}天赋{{/if}}
@@ -89,7 +90,7 @@
   <li class="item flexrow item-header">
     <div class="item-name"><b>人物阶级</b></div>
     <div class="item-controls">
-      <a class="stage-create-cha"><i class="fa fa-plus">增加阶级</i></a>
+      <a class="stage-create-cha"><i class="fa fa-plus">阶级</i></a>
     </div>
   </li>
   
@@ -101,11 +102,8 @@
         <label>{{stage.name}}</label>
       </div>
       <div>
-        <span>生命骰大小：</span>
+        <span>生命骰：</span>
         <input type="text" name="data.stages.{{id}}.hit_dice" value="{{stage.hit_dice}}" style="width:50px;"/>
-      </div>
-      <div>
-        <span>天赋：{{stage.numtalent}}；专长：{{stage.numfeat}}；族裔力量：{{stage.numrpower}}</span>
       </div>
       <div class="item-controls">
         <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="feat"><i class="fas fa-plus"></i>新增</a>
@@ -113,8 +111,10 @@
     </li>
     {{#each stage.feats as |feat key|}}
       <li class="item flexrow" data-item-id="{{feat._id}}">
-        <div class="item-image"><img src="{{feat.img}}" title="{{feat.name}}" width="24" height="24"/></div>
-        <h4 class="item-name">{{feat.name}}</h4>
+        <div class="item-name flexrow">
+          <div class="item-image" style="background-image: url('{{feat.img}}')"></div>
+          <h4>{{feat.name}}</h4>
+        </div>
         <div><label><b>类型：</b></label><span>
           {{#if (eq feat.data.featType "feat")}}职业专长{{/if}}
           {{#if (eq feat.data.featType "talent")}}天赋{{/if}}
@@ -135,7 +135,7 @@
   <li class="item flexrow item-header">
     <div class="item-name"><b>训练阶级</b></div>
     <div class="item-controls">
-      <a class="stage-create-cla"><i class="fa fa-plus">增加阶级</i></a>
+      <a class="stage-create-cla"><i class="fa fa-plus">阶级</i></a>
     </div>
   </li>
   
@@ -147,11 +147,8 @@
         <input type="text" name="data.stages.{{id}}.name" value="{{stage.name}}" style="width:100px;"/>
       </section>
       <div>
-        <span>生命骰大小：</span>
+        <span>生命骰：</span>
         <input type="text" name="data.stages.{{id}}.hit_dice" value="{{stage.hit_dice}}" style="width:50px;"/>
-      </div>
-      <div>
-        <span>天赋：{{stage.numtalent}}；专长：{{stage.numfeat}}；族裔力量：{{stage.numrpower}}</span>
       </div>
       <div class="item-controls">
         <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="feat"><i class="fas fa-plus"></i>新增</a>
@@ -159,8 +156,10 @@
     </li>
     {{#each stage.feats as |feat key|}}
       <li class="item flexrow" data-item-id="{{feat._id}}">
-        <div class="item-image"><img src="{{feat.img}}" title="{{feat.name}}" width="24" height="24"/></div>
-        <h4 class="item-name">{{feat.name}}</h4>
+        <div class="item-name flexrow">
+          <div class="item-image" style="background-image: url('{{feat.img}}')"></div>
+          <h4>{{feat.name}}</h4>
+        </div>
         <div>
           <label><b>类型：</b></label>
           <span>

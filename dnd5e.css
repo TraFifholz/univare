@@ -450,9 +450,9 @@
   color: #191813;
 }
 .univare.sheet .items-list .item .item-name .item-image {
-  flex: 0 0 30px;
-  height: 30px;
-  background-size: 30px;
+  flex: 0 0 24px;
+  height: 24px;
+  background-size: 24px;
   border: none;
   margin-right: 5px;
 }
@@ -912,6 +912,9 @@
   line-height: 20px;
   color: #7a7971;
 }
+.univare.sheet.actor .items-list.resources {
+  flex: 0 0 250px;
+}
 .univare.sheet.actor .inventory-filters .currency input[type="text"] {
   flex: 0 0 48px;
   text-align: center;
@@ -1176,6 +1179,7 @@
   font-size: 18px;
 }
 .univare.sheet.item .sheet-body {
+  height: 350px;
   overflow: hidden;
 }
 .univare.sheet.item .sheet-body .tab {

@@ -1,0 +1,86 @@
+<ol class="items-list">
+<li class="item flexrow item-header" style="background-color: lightblue;">
+  <div class="item-name">法术</div>
+  <div>
+    环级
+  </div>
+  <div class="item-controls">
+    <a class="item-control item-create" title="Create item" data-type="spell"><i class="fas fa-plus"></i>法术</a>
+  </div>
+</li>
+{{#each spells as |item id|}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
+      <div class="item-name flexrow">
+        <div class="item-image" style="background-image: url('{{item.img}}')"></div>
+        <h4>{{item.name}}</h4>
+      </div>  
+        <div>{{item.data.level}}</div>
+        <div class="item-controls">
+            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        </div>
+    </li>
+{{/each}}
+<li class="item flexrow item-header" style="background-color: lightblue;">
+  <div class="item-name">魂能</div>
+  <div>
+    位置
+  </div>
+  <div>
+    秘源
+  </div>
+  <div class="item-controls">
+    <a class="item-control item-create" title="Create item" data-type="soulment"><i class="fas fa-plus"></i>魂能</a>
+  </div>
+</li>
+{{#each soulments as |item id|}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
+      <div class="item-name flexrow">
+        <div class="item-image" style="background-image: url('{{item.img}}')"></div>
+        <h4>{{item.name}}</h4>
+      </div>
+      <div>
+        {{item.data.slot}}
+      </div>
+      <div>
+        {{item.data.essense.value}}
+        /
+        {{item.data.essense.max}}
+      </div>
+        <div class="item-controls">
+            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        </div>
+    </li>
+{{/each}}
+<li class="item flexrow item-header" style="background-color: lightblue;">
+  <div class="item-name">武技</div>
+  <div>
+    等级
+  </div>
+  <div>
+    宗派
+  </div>
+  <div class="item-controls">
+    <a class="item-control item-create" title="Create item" data-type="maneuver"><i class="fas fa-plus"></i>武技</a>
+  </div>
+</li>
+{{#each maneuvers as |item id|}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
+      <div class="item-name flexrow">
+        <div class="item-image" style="background-image: url('{{item.img}}')"></div>
+        <h4>{{item.name}}</h4>
+      </div>  
+      <div>
+        {{item.data.level}}
+      </div>
+      <div>
+        {{item.data.discipline}}
+      </div>
+        <div class="item-controls">
+            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        </div>
+    </li>
+{{/each}}
+</ol>

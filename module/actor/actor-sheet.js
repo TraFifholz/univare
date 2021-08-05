@@ -10,7 +10,7 @@ export class UnivareActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["univare", "sheet", "actor"],
       width: 690,
-      height: 800,
+      height: 710,
       scrollY: [".items-list"],
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
@@ -66,6 +66,10 @@ export class UnivareActorSheet extends ActorSheet {
     const armors = [];
     const equipments = [];
     const gears = [];
+    const soulments = [];
+    const spells = [];
+    const traditions = [];
+    const maneuvers = [];
 
     // Iterate through items, allocating to containers
     // let totalWeight = 0;
@@ -77,14 +81,11 @@ export class UnivareActorSheet extends ActorSheet {
       }
       else if (i.type === 'skill') {
         if (i.data.isSaving){
-          i.data.level = calculateBonus('l', i.data.proficiency, actorData.data.level.chara, actorData.data.level.train);
           saving.push(i);
         }
         else {
-          i.data.level = calculateBonus(i.data.proficiency, i.data.proficiency, actorData.data.level.chara, actorData.data.level.train);
           skill.push(i);
         }
-        i.data.basicBonus = actorData.data.abilities[i.data.attribute].mod + i.data.level;
       }
       else if (i.type === 'package') {
         packages.push(i);
@@ -101,20 +102,26 @@ export class UnivareActorSheet extends ActorSheet {
       else if (i.type === "gear"){
         gears.push(i);
       }
+      else if (i.type === "soulment"){
+        soulments.push(i);
+      }
+      else if (i.type === "spell"){
+        spells.push(i);
+      }
+      else if (i.type === "tradition"){
+        traditions.push(i);
+      }
+      else if (i.type === "maneuver"){
+        maneuvers.push(i);
+      }
     }
     packages.sort((a, b) => (a.data.type.localeCompare(b.data.type,'zh-CN')))
     for (let s in actorData.data.stages) {
       actorData.data.stages[s].feats = [];
-      actorData.data.stages[s].numtalent = 0;
-      actorData.data.stages[s].numfeat = 0;
-      actorData.data.stages[s].numrpower = 0;
       let new_featlist = [];
       for (let i of feats){
         if (actorData.data.stages[s].featlist.indexOf(i._id) > -1){
           actorData.data.stages[s].feats.push(i);
-          if (i.data.featType === "feat") actorData.data.stages[s].numfeat += 1;
-          else if (i.data.featType === "talent") actorData.data.stages[s].numtalent += 1;
-          else if (i.data.featType === "rPower") actorData.data.stages[s].numrpower += 1;
           new_featlist.push(i._id);
         }
       }
@@ -129,6 +136,10 @@ export class UnivareActorSheet extends ActorSheet {
     sheetData.skills = skill;
     sheetData.savings = saving;
     sheetData.packages = packages;
+    sheetData.soulments = soulments;
+    sheetData.spells = spells;
+    sheetData.traditions = traditions;
+    sheetData.maneuvers = maneuvers;
     actorData.data.attributes.ac.total = actorData.data.attributes.ac.refAC.total + actorData.data.attributes.ac.armorAC.total + actorData.data.attributes.ac.base;
     actorData.data.attributes.ac.touch = actorData.data.attributes.ac.refAC.total + actorData.data.attributes.ac.base;
     actorData.data.attributes.ac.ff = actorData.data.attributes.ac.armorAC.total + actorData.data.attributes.ac.base;
@@ -214,6 +225,25 @@ export class UnivareActorSheet extends ActorSheet {
       this.actor.update({
           _id: this.actor.id,
           'data.stages': {
+              [`-=${key}`]: null,
+          },
+      }, {});
+    });
+    html.find('.resource-create').on('click', (ev) => {
+      this.actor.update({
+        _id: this.actor.id,
+        ['data.resources.' + randomID()]: {
+            name: `资源`,
+            max: 0,
+            value: 0
+        },
+    }, {});
+    });
+    html.find('.resource_delete').on('click', (ev) => {
+      const key = ev.currentTarget.dataset.actionKey;
+      this.actor.update({
+          _id: this.actor.id,
+          'data.resources': {
               [`-=${key}`]: null,
           },
       }, {});

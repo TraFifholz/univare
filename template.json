@@ -171,7 +171,8 @@
                         "id": "",
                         "bonus": 0
                     }
-                }
+                },
+                "attacks": []
             }
         },
         "character": {
@@ -438,7 +439,13 @@
                 "physicalItem",
                 "itemLevel",
                 "magicItem"
-            ]
+            ],
+            "hit":{
+                "pre": "",
+                "lat": "",
+                "attr": "str",
+                "bab": 0
+            }
         },
         "armor": {
             "templates": [
@@ -554,75 +561,12 @@
         },
         "spell": {
             "templates": [
-                "common",
-                "itemLevel"
+                "common"
             ],
-            "spellType": {
-                "value": ""
-            },
-            "category": {
-                "value": ""
-            },
             "source": {
                 "value": []
             },
-            "sphere": {
-                "value": []
-            },
-            "components": {
-                "value": ""
-            },
-            "materials": {
-                "value": ""
-            },
-            "target": {
-                "value": ""
-            },
-            "range": {
-                "value": ""
-            },
-            "area": {
-                "value": ""
-            },
-            "time": {
-                "value": "2"
-            },
-            "duration": {
-                "value": ""
-            },
-            "damage": {
-                "value": "",
-                "applyMod": false
-            },
-            "damageType": {
-                "value": ""
-            },
-            "scaling": {
-                "mode": "",
-                "formula": ""
-            },
-            "save": {
-                "value": "",
-                "basic": ""
-            },
-            "sustained": {
-                "value": false
-            },
-            "cost": {
-                "value": ""
-            },
-            "ability": {
-                "value": ""
-            },
-            "prepared": {
-                "value": ""
-            },
-            "location": {
-                "value": ""
-            },
-            "hasCounteractCheck": {
-                "value": false
-            }
+            "level": 0
         },
         "condition": {
             "templates": [
@@ -688,9 +632,7 @@
             "usage": {
                 "value": ""
             },
-            "slot": {
-                "value": ""
-            },
+            "slot": "手部",
             "essense": {
                 "value": 0,
                 "max": 0,
@@ -711,13 +653,17 @@
             "templates": [
                 "common"
             ],
-            "source": null,
-            "skill": null
+            "source": "",
+            "skill": "",
+            "level": 0
         },
         "maneuver": {
             "templates": [
                 "common"
-            ]
+            ],
+            "level": 0,
+            "discipline": "",
+            "isStance": false
         }
     }
 }

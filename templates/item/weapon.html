@@ -57,6 +57,51 @@
             </span>
         </div>
     </div>
+    {{# if hasActor}}
+    <div class="type form-group">
+        <div class="type form-group">
+            <label>先决</label>
+            <span class="form-fields">
+              <select name="data.hit.pre">
+                {{#select data.hit.pre}}
+                    {{#each skills as |skill key|}}
+                        <option value="{{skill._id}}">{{skill.name}}</option>
+                    {{/each}}
+                {{/select}}
+              </select>
+            </span>
+          </div>
+          &emsp;
+          <div class="type form-group">
+            <label>后验</label>
+            <span class="form-fields">
+              <select name="data.hit.lat">
+                {{#select data.hit.lat}}
+                    {{#each skills as |skill key|}}
+                        <option value="{{skill._id}}">{{skill.name}}</option>
+                    {{/each}}
+                {{/select}}
+              </select>
+            </span>
+          </div>
+          &emsp;
+          <div class="type form-group">
+            <label>属性</label>
+            <span class="form-fields">
+              <select name="data.hit.attr">
+                {{#select data.hit.attr}}
+                  <option value="str">力量</option>
+                  <option value="dex">敏捷</option>
+                  <option value="con">体质</option>
+                  <option value="int">智力</option>
+                  <option value="wis">感知</option>
+                  <option value="cha">魅力</option>       
+                {{/select}}
+              </select>
+            </span>
+          </div>
+    </div>
+    {{/if}}
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="description">详述</a>

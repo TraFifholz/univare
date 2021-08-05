@@ -1,1 +1,59 @@
-  {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+<div class = "flexrow">
+  <ol class="items-list resources">
+    <li class="item flexrow item-header" style="background-color: lightblue;">
+      <div class="item-name">源流</div>
+      <div>
+        根源
+      </div>
+      <div>
+        等级
+      </div>
+      <div class="item-controls">
+        <a class="item-control item-create" title="Create item" data-type="tradition"><i class="fas fa-plus"></i>源流</a>
+      </div>
+    </li>
+    {{#each traditions as |item id|}}
+        <li class="item flexrow" data-item-id="{{item._id}}">
+          <div class="item-name flexrow">
+            <div class="item-image" style="background-image: url('{{item.img}}')"></div>
+            <h4>{{item.name}}</h4>
+          </div>  
+          <div>
+            {{item.data.source}}
+          </div>
+          <div>
+            {{item.data.level}}
+          </div>
+            <div class="item-controls">
+                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </div>
+        </li>
+    {{/each}}
+    <li class="item flexrow" style="background-color: lightgoldenrodyellow;">
+        <div>
+            <label><b>资源</b></label>
+        </div>
+        <div class="item-controls">
+            <a class="resource-create" data-action-key="{{id}}"><i class="fas fa-plus"></i>新增</a>
+        </div>
+    </li>
+    {{#each data.resources as |resource key|}}
+        <li class="item flexrow">
+          <input type="text" name="data.resources.{{key}}.name" value="{{resource.name}}" style="width: 40px;"/>
+          <div class = "form-group">
+            <input type="text" name="data.resources.{{key}}.value" value="{{resource.value}}" data-dtype="Number" style="width: 40px;"/>
+            /
+            <input type="text" name="data.resources.{{key}}.max" value="{{resource.max}}" data-dtype="Number" style="width: 40px;"/>
+          </div> 
+          <div class="item-controls">
+            <a class="resource_delete" data-action-key="{{key}}"><i class="fas fa-trash"></i></a>
+          </div>
+        </li>
+    {{/each}}
+      
+  </ol>
+  <div class = "biography">
+    {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+  </div>
+</div>

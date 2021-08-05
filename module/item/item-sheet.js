@@ -33,7 +33,7 @@ export class UnivareItemSheet extends ItemSheet {
   getData() {
     // Retrieve base data structure.
     const context = super.getData();
-
+    const skills = [];
     // Use a safe clone of the item data for further operations.
     const itemData = context.item.data;
 
@@ -42,12 +42,21 @@ export class UnivareItemSheet extends ItemSheet {
     let actor = this.object?.parent ?? null;
     if (actor) {
       context.rollData = actor.getRollData();
+      context.hasActor = true;
+    } else {
+      context.hasActor = false;
+    }
+
+    for (let i of actor.items){
+      if (i.type === "skill"){
+        skills.push(i);
+      }
     }
 
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = itemData.data;
     context.flags = itemData.flags;
-
+    context.skills = skills;
     return context;
   }
 
