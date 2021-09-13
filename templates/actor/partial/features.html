@@ -11,7 +11,7 @@
     </li>
     {{#each stage.feats as |feat key|}}
       <li class="item flexrow" data-item-id="{{feat._id}}">
-        <div class="item-name flexrow">
+        <div class="item-name rollable flexrow">
           <div class="item-image" style="background-image: url('{{feat.img}}')"></div>
           <h4>{{feat.name}}</h4>
         </div>
@@ -19,7 +19,7 @@
         <div><label><b>类型：</b></label><span>
           {{#if (eq feat.data.featType "feat")}}职业专长{{/if}}
           {{#if (eq feat.data.featType "talent")}}天赋{{/if}}
-          {{#if (eq feat.data.featType "rPower")}}族裔力量{{/if}}
+          {{#if (eq feat.data.featType "rPower")}}族裔专长{{/if}}
           {{#if (eq feat.data.featType "race")}}种族{{/if}}
           {{#if (eq feat.data.featType "heritage")}}遗传{{/if}}
           {{#if (eq feat.data.featType "origin")}}起源{{/if}}
@@ -45,14 +45,14 @@
     </li>
     {{#each stage.feats as |feat key|}}
       <li class="item flexrow" data-item-id="{{feat._id}}">
-        <div class="item-name flexrow">
+        <div class="item-name rollable flexrow">
           <div class="item-image" style="background-image: url('{{feat.img}}')"></div>
           <h4>{{feat.name}}</h4>
         </div>
         <div><label><b>类型：</b></label><span>
           {{#if (eq feat.data.featType "feat")}}职业专长{{/if}}
           {{#if (eq feat.data.featType "talent")}}天赋{{/if}}
-          {{#if (eq feat.data.featType "rPower")}}族裔力量{{/if}}
+          {{#if (eq feat.data.featType "rPower")}}族裔专长{{/if}}
           {{#if (eq feat.data.featType "race")}}种族{{/if}}
           {{#if (eq feat.data.featType "heritage")}}遗传{{/if}}
           {{#if (eq feat.data.featType "origin")}}起源{{/if}}
@@ -67,7 +67,7 @@
   {{/each}}
 
   {{#each stage.feats as |feat key|}}
-    <li class="item flexrow" data-item-id="{{feat._id}}">
+    <li class="item rollable flexrow" data-item-id="{{feat._id}}">
       <div class="item-name flexrow">
         <div class="item-image" style="background-image: url('{{feat.img}}')"></div>
         <h4>{{feat.name}}</h4>
@@ -75,7 +75,7 @@
       <div><label><b>类型：</b></label><span>
         {{#if (eq feat.data.featType "feat")}}职业专长{{/if}}
         {{#if (eq feat.data.featType "talent")}}天赋{{/if}}
-        {{#if (eq feat.data.featType "rPower")}}族裔力量{{/if}}
+        {{#if (eq feat.data.featType "rPower")}}族裔专长{{/if}}
         {{#if (eq feat.data.featType "race")}}种族{{/if}}
         {{#if (eq feat.data.featType "heritage")}}遗传{{/if}}
         {{#if (eq feat.data.featType "origin")}}起源{{/if}}
@@ -111,14 +111,14 @@
     </li>
     {{#each stage.feats as |feat key|}}
       <li class="item flexrow" data-item-id="{{feat._id}}">
-        <div class="item-name flexrow">
+        <div class="item-name rollable flexrow">
           <div class="item-image" style="background-image: url('{{feat.img}}')"></div>
           <h4>{{feat.name}}</h4>
         </div>
         <div><label><b>类型：</b></label><span>
           {{#if (eq feat.data.featType "feat")}}职业专长{{/if}}
           {{#if (eq feat.data.featType "talent")}}天赋{{/if}}
-          {{#if (eq feat.data.featType "rPower")}}族裔力量{{/if}}
+          {{#if (eq feat.data.featType "rPower")}}族裔专长{{/if}}
           {{#if (eq feat.data.featType "race")}}种族{{/if}}
           {{#if (eq feat.data.featType "heritage")}}遗传{{/if}}
           {{#if (eq feat.data.featType "origin")}}起源{{/if}}
@@ -156,7 +156,7 @@
     </li>
     {{#each stage.feats as |feat key|}}
       <li class="item flexrow" data-item-id="{{feat._id}}">
-        <div class="item-name flexrow">
+        <div class="item-name rollable flexrow">
           <div class="item-image" style="background-image: url('{{feat.img}}')"></div>
           <h4>{{feat.name}}</h4>
         </div>
@@ -165,7 +165,7 @@
           <span>
             {{#if (eq feat.data.featType "feat")}}职业专长{{/if}}
             {{#if (eq feat.data.featType "talent")}}天赋{{/if}}
-            {{#if (eq feat.data.featType "rPower")}}族裔力量{{/if}}
+            {{#if (eq feat.data.featType "rPower")}}族裔专长{{/if}}
             {{#if (eq feat.data.featType "race")}}种族{{/if}}
             {{#if (eq feat.data.featType "heritage")}}遗传{{/if}}
             {{#if (eq feat.data.featType "origin")}}起源{{/if}}
@@ -179,4 +179,33 @@
     {{/each}}
   {{/if}}
   {{/each}}  
+  <li class="item flexrow" data-item-id="{{stage.id}}", style="background-color: lightgoldenrodyellow;">
+    <div class="item-name">
+      <label><b>未归类</b></label>
+    </div>
+    <div class="item-controls">
+      <a class="item-control item-create" data-action-key="{{id}}" title="Create item" data-type="feat"><i class="fas fa-plus"></i>新增</a>
+    </div>
+  </li>
+  {{#each noneStageFeats as |feat key|}}
+    <li class="item flexrow" data-item-id="{{feat._id}}">
+      <div class="item-name rollable flexrow">
+        <div class="item-image" style="background-image: url('{{feat.img}}')"></div>
+        <h4>{{feat.name}}</h4>
+      </div>
+      
+      <div><label><b>类型：</b></label><span>
+        {{#if (eq feat.data.featType "feat")}}职业专长{{/if}}
+        {{#if (eq feat.data.featType "talent")}}天赋{{/if}}
+        {{#if (eq feat.data.featType "rPower")}}族裔专长{{/if}}
+        {{#if (eq feat.data.featType "race")}}种族{{/if}}
+        {{#if (eq feat.data.featType "heritage")}}遗传{{/if}}
+        {{#if (eq feat.data.featType "origin")}}起源{{/if}}
+      </span></div>
+      <div class="item-controls">
+          <a class="item-control item-edit" title="编辑"><i class="fas fa-edit"></i></a>
+          <a class="item-control item-delete" title="删除"><i class="fas fa-trash"></i></a>
+      </div>
+    </li>
+  {{/each}} 
 </ol>

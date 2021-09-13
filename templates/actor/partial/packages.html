@@ -11,15 +11,17 @@
         </li>
         {{#each savings as |item key|}}
             <li class="item flexrow" data-item-id="{{item._id}}">
-                <div class="item-name flexrow">
+                <div class="item-name rollable flexrow">
                     <div class="item-image" style="background-image: url('{{item.img}}')"></div>
-                    <a class="rollable" data-roll="d20+@{{item._id}}.basicBonus" data-label="{{item.name}}"><b>{{item.name}}</b>
+                    <h4>
+                        <b>{{item.name}}</b>
                         {{#if (eq item.data.proficiency "ut")}}未受训{{/if}}
                         {{#if (eq item.data.proficiency "t")}}受训{{/if}}
                         {{#if (eq item.data.proficiency "e")}}专家{{/if}}
                         {{#if (eq item.data.proficiency "m")}}大师{{/if}}
-                        {{#if (eq item.data.proficiency "l")}}传奇{{/if}}</a>
-                </div>
+                        {{#if (eq item.data.proficiency "l")}}传奇{{/if}}
+                    </h4>
+                </div>    
                 <div>{{item.data.level}}</div>
                 <div>{{numberFormat item.data.basicBonus decimals=0 sign=true}}</div>
                 <div class="item-controls">
@@ -41,15 +43,17 @@
         </li>
         {{#each skills as |item key|}}
             <li class="item flexrow" data-item-id="{{item._id}}">
-                <div class="item-name flexrow">
+                <div class="item-name rollable flexrow">
                     <div class="item-image" style="background-image: url('{{item.img}}')"></div>
-                    <a class="rollable" data-roll="d20+@{{item._id}}.basicBonus" data-label="{{item.name}}"><b>{{item.name}}</b>
+                    <h4>
+                        <b>{{item.name}}</b>
                         {{#if (eq item.data.proficiency "ut")}}未受训{{/if}}
                         {{#if (eq item.data.proficiency "t")}}受训{{/if}}
                         {{#if (eq item.data.proficiency "e")}}专家{{/if}}
                         {{#if (eq item.data.proficiency "m")}}大师{{/if}}
-                        {{#if (eq item.data.proficiency "l")}}传奇{{/if}}</a>
-                </div>     
+                        {{#if (eq item.data.proficiency "l")}}传奇{{/if}}
+                    </h4>
+                </div>    
                 <div>{{item.data.level}}</div>
                 <div>{{numberFormat item.data.basicBonus decimals=0 sign=true}}</div>
                 <div class="item-controls">
@@ -70,16 +74,17 @@
         </li>
         {{#each packages as |item key|}}
             <li class="item flexrow" data-item-id="{{item._id}}">
-                <div class="item-name flexrow">
+                <div class="item-name rollable flexrow">
                     <div class="item-image" style="background-image: url('{{item.img}}')"></div>
-                    <h4><b>{{item.name}}</b>
+                    <h4>
+                        <b>{{item.name}}</b>
                         {{#if (eq item.data.proficiency "ut")}}未受训{{/if}}
                         {{#if (eq item.data.proficiency "t")}}受训{{/if}}
                         {{#if (eq item.data.proficiency "e")}}专家{{/if}}
                         {{#if (eq item.data.proficiency "m")}}大师{{/if}}
                         {{#if (eq item.data.proficiency "l")}}传奇{{/if}}
-                    </h4>   
-                </div> 
+                    </h4>
+                </div>  
                 <div><span>
                     {{#if (eq item.data.type "class")}}范型{{/if}}
                     {{#if (eq item.data.type "sphere")}}领域{{/if}}

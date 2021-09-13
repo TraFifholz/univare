@@ -445,6 +445,9 @@
                 "lat": "",
                 "attr": "str",
                 "bab": 0
+            },
+            "damage":{
+                "parts": []
             }
         },
         "armor": {
@@ -557,7 +560,7 @@
             "templates": [
                 "common"
             ],
-            "featType": "天赋"
+            "featType": "talent"
         },
         "spell": {
             "templates": [

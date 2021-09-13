@@ -927,10 +927,10 @@
 .univare.sheet.actor .inventory-list .item .item-name {
   cursor: pointer;
 }
-.univare.sheet.actor .inventory-list .item .item-name.rollable:hover .item-image {
+.univare.sheet.actor .inventory-list .item .item-name.rollable:hover .rollable {
   background-image: url("../../icons/svg/d20-grey.svg") !important;
 }
-.univare.sheet.actor .inventory-list .item .item-name.rollable .item-image:hover {
+.univare.sheet.actor .inventory-list .item .item-name.rollable .rollable:hover {
   background-image: url("../../icons/svg/d20-black.svg") !important;
 }
 .univare.sheet.actor .inventory-list .item .item-name i.attuned {
@@ -943,7 +943,7 @@
   width: 24px;
   text-align: center;
 }
-.univare.sheet.actor .inventory-list .item .item-properties {
+.univare.sheet.actor .item .item-properties {
   margin-top: 3px;
 }
 .univare.sheet.actor .inventory-list .item .item-recharge {
@@ -981,7 +981,7 @@
 .univare.sheet.actor .inventory-list .item-controls {
   flex: 0 0 44px;
 }
-.univare.sheet.actor .inventory-list .item-summary {
+.univare.sheet.actor .item-summary {
   flex: 0 0 100%;
   font-size: 12px;
   line-height: 16px;

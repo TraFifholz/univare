@@ -7,9 +7,9 @@
     </li>
 {{#each weapons as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}">
-      <div class="item-name flexrow">
+      <div class="item-name rollable flexrow">
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
-        <a class="rollable" data-roll="d20+@{{item._id}}.hit.ab" data-label="{{item.name}}">{{item.name}}</a>
+        <h4>{{item.name}}</h4>
       </div>  
         <div>
           <b>
@@ -35,7 +35,7 @@
 </li>
 {{#each armors as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}">
-      <div class="item-name flexrow">
+      <div class="item-name rollable flexrow">
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
         <h4>{{item.name}}</h4>
       </div>  
@@ -54,7 +54,7 @@
 </li>
 {{#each equipments as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}">
-      <div class="item-name flexrow">
+      <div class="item-name rollable flexrow">
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
         <h4>{{item.name}}</h4>
       </div>  
@@ -72,7 +72,7 @@
 </li>
 {{#each gears as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}">
-      <div class="item-name flexrow">
+      <div class="item-name rollable flexrow">
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
         <h4>{{item.name}}</h4>
       </div>  

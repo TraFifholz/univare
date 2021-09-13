@@ -1,0 +1,16 @@
+<form>
+    <div class="form-group">
+        <label>公式</label>
+        <input type="text" name="formula" value="{{formula}}" disabled/>
+    </div>
+    <div class="form-group">
+        <label>其他加减值</label>
+        <input type="text" name="bonus" value="" placeholder="比如'+1d4"/>
+    </div>
+    <div class="form-group">
+        <label>检定方式</label>
+        <select name="rollMode">
+            {{selectOptions rollModes selected=defaultRollMode localize=true}}
+        </select>
+    </div>
+</form>

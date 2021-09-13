@@ -1,4 +1,4 @@
-import { calculateBonus } from "../bonus.js";
+
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -115,17 +115,20 @@ export class UnivareActorSheet extends ActorSheet {
         maneuvers.push(i);
       }
     }
+
     packages.sort((a, b) => (a.data.type.localeCompare(b.data.type,'zh-CN')))
+
     for (let s in actorData.data.stages) {
       actorData.data.stages[s].feats = [];
-      let new_featlist = [];
-      for (let i of feats){
-        if (actorData.data.stages[s].featlist.indexOf(i._id) > -1){
-          actorData.data.stages[s].feats.push(i);
-          new_featlist.push(i._id);
-        }
+    }
+    const noneStageFeats = [];
+    for (let i of feats){
+      if (i.data.stage && (i.data.stage in actorData.data.stages)){
+        actorData.data.stages[i.data.stage].feats.push(i);
       }
-      actorData.data.stages[s].featlist = new_featlist;
+      else {
+        noneStageFeats.push(i);
+      }
     }
 
     // Assign and return
@@ -140,6 +143,7 @@ export class UnivareActorSheet extends ActorSheet {
     sheetData.spells = spells;
     sheetData.traditions = traditions;
     sheetData.maneuvers = maneuvers;
+    sheetData.noneStageFeats = noneStageFeats;
     actorData.data.attributes.ac.total = actorData.data.attributes.ac.refAC.total + actorData.data.attributes.ac.armorAC.total + actorData.data.attributes.ac.base;
     actorData.data.attributes.ac.touch = actorData.data.attributes.ac.refAC.total + actorData.data.attributes.ac.base;
     actorData.data.attributes.ac.ff = actorData.data.attributes.ac.armorAC.total + actorData.data.attributes.ac.base;
@@ -229,6 +233,7 @@ export class UnivareActorSheet extends ActorSheet {
           },
       }, {});
     });
+    html.find('.item .item-name.rollable h4').click(event => this._onItemSummary(event));
     html.find('.resource-create').on('click', (ev) => {
       this.actor.update({
         _id: this.actor.id,
@@ -248,6 +253,14 @@ export class UnivareActorSheet extends ActorSheet {
           },
       }, {});
     });
+    html.find('.item .item-image').click(event => this._onItemRoll(event));
+  }
+
+  _onItemRoll(event) {
+    event.preventDefault();
+    const itemId = event.currentTarget.closest(".item").dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    return item.roll();
   }
 
   /**
@@ -277,10 +290,9 @@ export class UnivareActorSheet extends ActorSheet {
     let item = await Item.create(itemData, {parent: this.actor});
     
     if (typeof(event.currentTarget.dataset.actionKey)!="undefined" && event.currentTarget.dataset.type === "feat"){
-      const featlist = this.actor.data.data.stages[event.currentTarget.dataset.actionKey].featlist;
-      this.actor.update({
-        _id: this.actor.id,
-        [`data.stages.${event.currentTarget.dataset.actionKey}.featlist`]: featlist.concat(item._id)
+      item.update({
+        _id: item.id,
+        [`data.stage`]: event.currentTarget.dataset.actionKey
       }, {});
     }
     if (header.dataset.itemId === "saving"){
@@ -310,5 +322,26 @@ export class UnivareActorSheet extends ActorSheet {
         flavor: label
       });
     }
+  }
+
+  _onItemSummary(event) {
+    event.preventDefault();
+    let li = $(event.currentTarget).parents(".item"),
+        item = this.actor.items.get(li.data("item-id")),
+        chatData = item.getChatData({secrets: this.actor.isOwner});
+
+    // Toggle summary
+    if ( li.hasClass("expanded") ) {
+      let summary = li.children(".item-summary");
+      summary.slideUp(200, () => summary.remove());
+    } else {
+      let div = $(`<div class="item-summary">${chatData.description}</div>`);
+      let props = $(`<div class="item-properties"></div>`);
+      chatData.tags.forEach(p => props.append(`<span class="tag">${p}</span>`));
+      div.append(props);
+      li.append(div.hide());
+      div.slideDown(200);
+    }
+    li.toggleClass("expanded");
   }
 }

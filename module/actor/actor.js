@@ -1,4 +1,3 @@
-import { calculateBonus } from "../bonus.js";
 /**
  * Extend the base Actor entity by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
@@ -38,8 +37,11 @@ export class UnivareActor extends Actor {
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
     this._prepareCharacterData(actorData);
-    this._prepareNpcData(actorData);
-    // this._prepareCompanionData(actorData);
+
+    for (let item of this.items){
+      item.prepareDerivedData();
+    }
+
   }
 
   /**
@@ -67,39 +69,6 @@ export class UnivareActor extends Actor {
     }
     data.level.total = data.level.chara + data.level.train;
     data.attributes.hp.max = max_hp + data.others.bonus_hp + data.abilities.con.mod * data.level.total;
-    for (let i of actorData.items) {
-      if (i.type === 'skill') {
-        if (i.data.data.isSaving){
-          i.data.data.level = calculateBonus('l', i.data.data.proficiency, actorData.data.level.chara, actorData.data.level.train);
-        }
-        else {
-          i.data.data.level = calculateBonus(i.data.data.proficiency, i.data.data.proficiency, actorData.data.level.chara, actorData.data.level.train);
-        }
-        if (actorData.data.abilities.hasOwnProperty(i.data.data.attribute))
-          i.data.data.basicBonus = actorData.data.abilities[i.data.data.attribute].mod + i.data.data.level;
-        else 
-        i.data.data.basicBonus = i.data.data.level;
-      }
-      else if (i.type === "weapon"){
-        let pre = this.items.get(i.data.data.hit.pre);
-        let lat = this.items.get(i.data.data.hit.lat);
-        let attr = actorData.data.abilities[i.data.data.hit.attr];
-        if (pre && lat){
-          i.data.data.hit.bab = calculateBonus(pre.data.data.proficiency, lat.data.data.proficiency, actorData.data.level.chara, actorData.data.level.train);
-        }
-        else i.data.data.hit.bab = 0;
-        i.data.data.hit.ab = i.data.data.hit.bab + attr.mod;
-      }
-      else if (i.type === "tradition"){
-        let skill = this.items.get(i.data.data.skill);
-        if (skill){
-          i.data.data.level = skill.data.data.level;
-        }
-        else {
-          i.data.data.level = 0;
-        }
-      }
-    }
     if (data.others.init.id != ""){
       const init = actorData.items.get(data.others.init.id);
       if (init) data.others.init.value = init.data.data.basicBonus + data.others.init.bonus;
@@ -164,4 +133,5 @@ export class UnivareActor extends Actor {
 
     // Process additional NPC data here.
   }
+  
 }

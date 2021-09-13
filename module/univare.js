@@ -5,6 +5,7 @@ import { UnivareItem } from "./item/item.js";
 import { UnivareItemSheet } from "./item/item-sheet.js";
 import { preloadTemplates } from "./preloadTemplates.js";
 import { Univare } from "./config.js";
+import * as dice from "./roll.js";
 
 Hooks.once('init', async function() {
 
@@ -34,7 +35,8 @@ Hooks.once('init', async function() {
   Actors.registerSheet("univare", UnivareActorSheet, { makeDefault: true });
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("univare", UnivareItemSheet, { makeDefault: true });
-
+  CONFIG.Dice.UnivareRoll = dice.UnivareRoll;
+  CONFIG.Dice.rolls.push(dice.UnivareRoll);
   return preloadTemplates();
 });
 
@@ -107,3 +109,6 @@ function rollItemMacro(itemName) {
   // Trigger the item roll
   return item.roll();
 }
+
+Hooks.on("renderChatLog", (app, html, data) => UnivareItem.chatListeners(html));
+Hooks.on("renderChatPopout", (app, html, data) => UnivareItem.chatListeners(html));

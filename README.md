@@ -56,7 +56,7 @@ Item具有以下类型：
 + consumable：消耗品；
 + treasure：其他物品；
 + spell：法术；
-+ ancestry：族裔力量；
++ ancestry：族裔专长；
 + feat：专长；
 + activity：行动；
 + backpack：背包；

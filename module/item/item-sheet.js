@@ -43,23 +43,39 @@ export class UnivareItemSheet extends ItemSheet {
     if (actor) {
       context.rollData = actor.getRollData();
       context.hasActor = true;
+      for (let i of actor.items){
+        if (i.type === "skill"){
+          skills.push(i);
+        }
+      }
+      context.stages = actor.data.data.stages;
     } else {
       context.hasActor = false;
-    }
-
-    for (let i of actor.items){
-      if (i.type === "skill"){
-        skills.push(i);
-      }
     }
 
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = itemData.data;
     context.flags = itemData.flags;
     context.skills = skills;
+    
     return context;
   }
+  
+  _getSubmitData(updateData={}) {
 
+    // Create the expanded update data object
+    const fd = new FormDataExtended(this.form, {editors: this.editors});
+    let data = fd.toObject();
+    if ( updateData ) data = mergeObject(data, updateData);
+    else data = expandObject(data);
+
+    // Handle Damage array
+    const damage = data.data?.damage;
+    if ( damage ) damage.parts = Object.values(damage?.parts || {}).map(d => [d[0] || "", d[1] || ""]);
+
+    // Return the flattened submission data
+    return flattenObject(data);
+  }
   /* -------------------------------------------- */
 
   /** @override */
@@ -87,6 +103,31 @@ export class UnivareItemSheet extends ItemSheet {
           },
       }, {});
     });
+    html.find(".damage-control").click(this._onDamageControl.bind(this));
   }
-  
+
+  async _onDamageControl(event) {
+    event.preventDefault();
+    const a = event.currentTarget;
+
+    // Add new damage component
+    if ( a.classList.contains("add-damage") ) {
+      await this._onSubmit(event);  // Submit any unsaved changes
+      const damage = this.item.data.data.damage;
+      return this.item.update({"data.damage.parts": damage.parts.concat([["", ""]])});
+    }
+
+    // Remove a damage component
+    if ( a.classList.contains("delete-damage") ) {
+      await this._onSubmit(event);  // Submit any unsaved changes
+      const li = a.closest(".damage-part");
+      const damage = foundry.utils.deepClone(this.item.data.data.damage);
+      damage.parts.splice(Number(li.dataset.damagePart), 1);
+      return this.item.update({"data.damage.parts": damage.parts});
+    }
+  }
+  async _onSubmit(...args) {
+    if ( this._tabs[0].active === "details" ) this.position.height = "auto";
+    await super._onSubmit(...args);
+  }
 }
